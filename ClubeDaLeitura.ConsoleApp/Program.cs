@@ -1,1 +1,8 @@
-﻿Console.WriteLine("Hello, World!");
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+
+
+
+while (true)
+{
+
+}
