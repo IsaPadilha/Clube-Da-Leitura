@@ -1,8 +1,11 @@
-using System;
-
 namespace ClubeDaLeitura.ConsoleApp.Utilidades;
 
-public class GeradorIds.cs
+public class GeradorIds
 {
+    private static int contadorIdsCaixa = 1;
 
+    public static int ObterIdCaixa()
+    {
+        return contadorIdsCaixa++;
+    }
 }
