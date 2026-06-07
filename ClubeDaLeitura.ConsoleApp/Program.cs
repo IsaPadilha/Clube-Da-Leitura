@@ -1,6 +1,11 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 using ClubeDaLeitura.ConsoleApp.ModuloRevista;
+using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
+
+RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
 
 RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
 RepositorioRevista repositorioRevista = new RepositorioRevista();
@@ -13,6 +18,8 @@ repositorioRevista.Cadastrar(revistaTeste);
 
 TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa, repositorioRevista);
 TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
+TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
 
 TelaPrincipal telaPrincipal = new TelaPrincipal();
 
@@ -69,12 +76,23 @@ while (true)
 
         else if (opcaoMenuPrincipal == "3") // amigos
         {
+            string? opcaoMenuInterno = telaAmigo.ObterOpcaoMenu();
+            if (opcaoMenuInterno == "S") break;
 
+            if (opcaoMenuInterno == "1") telaAmigo.Cadastrar();
+            else if (opcaoMenuInterno == "2") telaAmigo.Editar();
+            else if (opcaoMenuInterno == "3") telaAmigo.Excluir(repositorioEmprestimo);
+            else if (opcaoMenuInterno == "4") telaAmigo.VisualizarTodos(true);
         }
 
         else if (opcaoMenuPrincipal == "4") // emprestimos
         {
+            string? opcaoMenuInterno = telaEmprestimo.ObterOpcaoMenu();
+            if (opcaoMenuInterno == "S") break;
 
+            if (opcaoMenuInterno == "1") telaEmprestimo.RegistrarEmprestimo();
+            else if (opcaoMenuInterno == "2") telaEmprestimo.RegistrarDevolucao();
+            else if (opcaoMenuInterno == "3") telaEmprestimo.VisualizarTodos();
         }
     }
 }
