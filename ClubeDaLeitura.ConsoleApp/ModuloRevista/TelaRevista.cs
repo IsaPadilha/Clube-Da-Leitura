@@ -52,7 +52,31 @@ public class TelaRevista
 
     public void Editar()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Edição de Revista");
+        Console.WriteLine("---------------------------------");
+
+        // visualizar revistas cadastradas e obter o ID que deseja editar
+        VisualizarTodos(false);
+
+        Console.WriteLine("---------------------------------");
+
+        Console.Write("Digite o ID do registro que deseja editar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("---------------------------------");
+
+        // obter os novos dados da revista
+        Revista revistaAtualizada = ObterDadosCadastrais();
+
+        // editar a revista no repositório
+        repositorioRevista.Editar(idSelecionado, revistaAtualizada);
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro \"{revistaAtualizada.Titulo}\" foi editado com sucesso!");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
     }
 
     public void Excluir()
