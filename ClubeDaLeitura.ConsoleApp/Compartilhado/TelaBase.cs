@@ -70,6 +70,30 @@ public abstract class TelaBase
         Console.ReadLine();
     }
 
+    public void Excluir()
+    {
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Exclusão de {nomeEntidade}");
+        Console.WriteLine("---------------------------------");
+
+        // visualizar revistas cadastradas e obter o ID que deseja excluir
+        VisualizarTodos(false);
+
+        Console.WriteLine("---------------------------------");
+
+        Console.Write("Digite o ID do registro que deseja excluir: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        // excluir a revista no repositório
+        repositorio.Excluir(idSelecionado);
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro de ID \"{idSelecionado}\" foi excluído com sucesso!");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
+    }
+
     public abstract void VisualizarTodos(bool deveExibirCabecalho);
 
     protected abstract EntidadeBase ObterDadosCadastrais();
