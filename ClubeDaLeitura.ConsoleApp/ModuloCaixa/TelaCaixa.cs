@@ -18,53 +18,6 @@ public class TelaCaixa : TelaBase
         this.repositorioRevista = repositorioRevista;
     }
 
-    public void Editar()
-    {
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Edição de Caixa");
-        Console.WriteLine("---------------------------------");
-
-        VisualizarTodos(false);
-
-        Console.WriteLine("---------------------------------");
-
-        Console.WriteLine("Digite o ID do registro que deseja editar: ");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine("---------------------------------");
-
-        Caixa caixaAtualizada = (Caixa)ObterDadosCadastrais();
-
-        EntidadeBase[] caixas = repositorioCaixa.SelecionarTodos();
-
-        for (int i = 0; i < caixas.Length; i++)
-        {
-            Caixa c = (Caixa)caixas[i];
-
-            if (c == null)
-                continue;
-
-            if (c.Id != idSelecionado && c.Etiqueta.ToLower() == caixaAtualizada.Etiqueta.ToLower())
-            {
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine($"Já existe uma caixa com a etiqueta \"{caixaAtualizada.Etiqueta}\"!");
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine("Digite ENTER para continuar");
-                Console.ReadLine();
-
-                return;
-            }
-        }
-
-        repositorioCaixa.Editar(idSelecionado, caixaAtualizada);
-
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine($"O registro \"{caixaAtualizada.Etiqueta}\" goi editado com sucesso!");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Digite ENTER para continuar");
-        Console.ReadLine();
-    }
-
     // nao permitir excluir uma caixa caso tenha revistas vinculadas
     public void Excluir()
     {
@@ -109,12 +62,12 @@ public class TelaCaixa : TelaBase
         Console.ReadLine();
     }
 
-    public void VisualizarTodos(bool deveExibirCabecalho)
+    public override void VisualizarTodos(bool deveExibirCabecalho)
     {
         if (deveExibirCabecalho)
         {
             Console.WriteLine("---------------------------------");
-            Console.WriteLine("Vizualização de Caixas");
+            Console.WriteLine("Visualização de Caixas");
             Console.WriteLine("---------------------------------");
         }
 
@@ -133,7 +86,7 @@ public class TelaCaixa : TelaBase
                 continue;
 
             Console.WriteLine(
-                "{0. -7} | {1, -20} | {2, -10} | {3, -20}",
+                "{0, -7} | {1, -20} | {2, -10} | {3, -20}",
                 c.Id, c.Etiqueta, c.Cor, c.DiasDeEmprestimo
             );
         }
@@ -145,6 +98,7 @@ public class TelaCaixa : TelaBase
             Console.ReadLine();
         }
     }
+
     protected override EntidadeBase ObterDadosCadastrais()
     {
         Console.Write("Informe a etiqueta da caixa: ");

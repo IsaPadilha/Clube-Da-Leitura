@@ -35,27 +35,6 @@ public abstract class TelaBase
 
         EntidadeBase novaEntidade = ObterDadosCadastrais();
 
-        EntidadeBase[] registros = repositorio.SelecionarTodos();
-
-        //for (int i = 0; i < registros.Length; i++)
-        //{
-        //    EntidadeBase e = registros[i];
-
-        //    if (e == null)
-        //        continue;
-
-        //    if (e.Etiqueta.ToLower() == nomeEntidade.Etiqueta.ToLower())
-        //    {
-        //        Console.WriteLine("---------------------------------");
-        //        Console.WriteLine($"Já existe uma caixa com a etiqueta \"{nomeEntidade.Etiqueta}\"!");
-        //        Console.WriteLine("---------------------------------");
-        //        Console.WriteLine("Digite ENTER para continuar");
-        //        Console.ReadLine();
-
-        //        return;
-        //    }
-        //}
-
         repositorio.Cadastrar(novaEntidade);
 
         Console.WriteLine("---------------------------------");
@@ -64,6 +43,34 @@ public abstract class TelaBase
         Console.WriteLine("Digite ENTER para continuar");
         Console.ReadLine();
     }
+
+    public void Editar()
+    {
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"Edição de {nomeEntidade}");
+        Console.WriteLine("---------------------------------");
+
+        VisualizarTodos(false);
+
+        Console.WriteLine("---------------------------------");
+
+        Console.WriteLine("Digite o ID do registro que deseja editar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("---------------------------------");
+
+        EntidadeBase entidadeAtualizada = ObterDadosCadastrais();
+
+        repositorio.Editar(idSelecionado, entidadeAtualizada);
+
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine($"O registro \"{entidadeAtualizada.Id}\" goi editado com sucesso!");
+        Console.WriteLine("---------------------------------");
+        Console.WriteLine("Digite ENTER para continuar");
+        Console.ReadLine();
+    }
+
+    public abstract void VisualizarTodos(bool deveExibirCabecalho);
 
     protected abstract EntidadeBase ObterDadosCadastrais();
 }

@@ -17,53 +17,6 @@ public class TelaRevista : TelaBase
         this.repositorioCaixa = repositorioCaixa;
     }
 
-    public string? ObterOpcaoMenu()
-    {
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Gestão de Revistas");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("1 - Cadastrar revista");
-        Console.WriteLine("2 - Editar revista");
-        Console.WriteLine("3 - Excluir revista");
-        Console.WriteLine("4 - Visualizar revistas");
-        Console.WriteLine("S - Sair");
-        Console.WriteLine("---------------------------------");
-        Console.Write("> ");
-
-        string? opcaoMenu = Console.ReadLine()?.ToUpper();
-
-        return opcaoMenu;
-    }
-
-    public void Editar()
-    {
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Edição de Revista");
-        Console.WriteLine("---------------------------------");
-
-        // visualizar revistas cadastradas e obter o ID que deseja editar
-        VisualizarTodos(false);
-
-        Console.WriteLine("---------------------------------");
-
-        Console.Write("Digite o ID do registro que deseja editar: ");
-        int idSelecionado = Convert.ToInt32(Console.ReadLine());
-
-        Console.WriteLine("---------------------------------");
-
-        // obter os novos dados da revista
-        Revista revistaAtualizada = (Revista)ObterDadosCadastrais();
-
-        // editar a revista no repositório
-        repositorioRevista.Editar(idSelecionado, revistaAtualizada);
-
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine($"O registro \"{revistaAtualizada.Titulo}\" foi editado com sucesso!");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Digite ENTER para continuar");
-        Console.ReadLine();
-    }
-
     public void Excluir()
     {
         Console.WriteLine("---------------------------------");
@@ -88,7 +41,7 @@ public class TelaRevista : TelaBase
         Console.ReadLine();
     }
 
-    public void VisualizarTodos(bool deveExibirCabecalho)
+    public override void VisualizarTodos(bool deveExibirCabecalho)
     {
         if (deveExibirCabecalho)
         {
