@@ -3,12 +3,15 @@ using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
-public class TelaRevista
+public class TelaRevista : TelaBase
 {
     private readonly RepositorioRevista repositorioRevista;
     private readonly RepositorioCaixa repositorioCaixa;
 
-    public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa)
+    public TelaRevista(
+        string nomeEntidade,
+        RepositorioRevista repositorioRevista,
+        RepositorioCaixa repositorioCaixa) : base(nomeEntidade, repositorioRevista)
     {
         this.repositorioRevista = repositorioRevista;
         this.repositorioCaixa = repositorioCaixa;
@@ -32,25 +35,6 @@ public class TelaRevista
         return opcaoMenu;
     }
 
-    public void Cadastrar()
-    {
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Cadastro de Revista");
-        Console.WriteLine("---------------------------------");
-
-        // obter dados cadastrais da revista
-        Revista novaRevista = ObterDadosCadastrais();
-
-        // armazenar a revista no repositorio
-        repositorioRevista.Cadastrar(novaRevista);
-
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine($"O registro \"{novaRevista.Titulo}\" foi cadastrada com sucesso!");
-        Console.WriteLine("---------------------------------");
-        Console.WriteLine("Digite ENTER para continuar...");
-        Console.ReadLine();
-    }
-
     public void Editar()
     {
         Console.WriteLine("---------------------------------");
@@ -68,7 +52,7 @@ public class TelaRevista
         Console.WriteLine("---------------------------------");
 
         // obter os novos dados da revista
-        Revista revistaAtualizada = ObterDadosCadastrais();
+        Revista revistaAtualizada = (Revista)ObterDadosCadastrais();
 
         // editar a revista no repositório
         repositorioRevista.Editar(idSelecionado, revistaAtualizada);
@@ -141,7 +125,7 @@ public class TelaRevista
         }
     }
 
-    private Revista ObterDadosCadastrais()
+    protected override EntidadeBase ObterDadosCadastrais()
     {
         Console.Write("Informe o título da revista: ");
         string? titulo = Console.ReadLine();
