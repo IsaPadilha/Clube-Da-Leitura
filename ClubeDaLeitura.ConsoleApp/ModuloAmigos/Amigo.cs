@@ -12,6 +12,7 @@ public class Amigo : EntidadeBase
     public Amigo(string nome, string responsavel, string telefone)
     {
         Id = GeradorIds.ObterIdAmigo();
+
         Nome = nome;
         Responsavel = responsavel;
         Telefone = telefone;
@@ -20,6 +21,7 @@ public class Amigo : EntidadeBase
     public override void Atualizar(EntidadeBase entidadeAtualizada)
     {
         Amigo amigoAtualizado = (Amigo)entidadeAtualizada;
+
         Nome = amigoAtualizado.Nome;
         Responsavel = amigoAtualizado.Responsavel;
         Telefone = amigoAtualizado.Telefone;
