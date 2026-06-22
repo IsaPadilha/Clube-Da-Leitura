@@ -3,7 +3,7 @@ using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 
-public class TelaCaixa : TelaBase
+public class TelaCaixa : TelaBase, ITelaOpcoes
 {
     private readonly RepositorioCaixa repositorioCaixa;
     private readonly RepositorioRevista repositorioRevista;

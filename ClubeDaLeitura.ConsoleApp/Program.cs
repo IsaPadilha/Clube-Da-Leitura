@@ -1,115 +1,46 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
-using ClubeDaLeitura.ConsoleApp.ModuloRevista;
-using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 using ClubeDaLeitura.ConsoleApp.ModuloAmigo;
-
-RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
-RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
-RepositorioRevista repositorioRevista = new RepositorioRevista();
-RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-
-Caixa caixaTeste = new Caixa("Ação", "Vermelho", 5);
-Revista revistaTeste = new Revista("Action Comics", 1, 1976, caixaTeste);
-Amigo amigoTeste = new Amigo("Junior Testes", "Seu Oswaldo", "49994619407");
-Emprestimo emprestimoTeste = new Emprestimo(amigoTeste, revistaTeste);
-emprestimoTeste.Abrir();
-
-repositorioCaixa.Cadastrar(caixaTeste);
-repositorioRevista.Cadastrar(revistaTeste);
-repositorioAmigo.Cadastrar(amigoTeste);
-repositorioEmprestimo.Cadastrar(emprestimoTeste);
-
-TelaCaixa telaCaixa = new TelaCaixa("Caixa", repositorioCaixa, repositorioRevista);
-TelaRevista telaRevista = new TelaRevista("Revista", repositorioRevista, repositorioCaixa);
-TelaAmigo telaAmigo = new TelaAmigo("Amigo", repositorioAmigo, repositorioEmprestimo);
-TelaEmprestimo telaEmprestimo = new TelaEmprestimo(
-    repositorioEmprestimo,
-    repositorioAmigo,
-    repositorioRevista);
+using ClubeDaLeitura.ConsoleApp.ModuloEmprestimo;
 
 TelaPrincipal telaPrincipal = new TelaPrincipal();
 
 while (true)
 {
-    string? opcaoMenuPrincipal = telaPrincipal.ObterMenuPrincipal();
+    ITelaOpcoes? telaSelecionada = telaPrincipal.ObterOpcaoMenuPrincipal();
 
-    if (opcaoMenuPrincipal == "S")
-    {
+    if (telaSelecionada == null)
         break;
-    }
 
     while (true)
     {
-        if (opcaoMenuPrincipal == "1") // caixas
+        string? opcaoMenuInterno = telaSelecionada.ObterOpcaoMenu();
+
+        if (opcaoMenuInterno == "S")
+            break;
+
+        if (telaSelecionada is TelaBase telaBase) // Caixas, Revistas, Amigos
         {
-            string? opcaoMenuInterno = telaCaixa.ObterOpcaoMenu();
-
-            if (opcaoMenuInterno == "S")
-                break;
-
             if (opcaoMenuInterno == "1")
-                telaCaixa.Cadastrar();
+                telaBase.Cadastrar();
 
             else if (opcaoMenuInterno == "2")
-                telaCaixa.Editar();
+                telaBase.Editar();
 
             else if (opcaoMenuInterno == "3")
-                telaCaixa.Excluir();
+                telaBase.Excluir();
 
             else if (opcaoMenuInterno == "4")
-                telaCaixa.VisualizarTodos(true);
+                telaBase.VisualizarTodos(true);
+
+            else if (telaBase is TelaAmigo telaAmigo)
+            {
+                if (opcaoMenuInterno == "5")
+                    telaAmigo.VisualizarEmprestimosAmigo();
+            }
         }
 
-        else if (opcaoMenuPrincipal == "2") // revistas
+        else if (telaSelecionada is TelaEmprestimo telaEmprestimo) // Empréstimos
         {
-            string? opcaoMenuInterno = telaRevista.ObterOpcaoMenu();
-
-            if (opcaoMenuInterno == "S")
-                break;
-
-            if (opcaoMenuInterno == "1")
-                telaRevista.Cadastrar();
-
-            else if (opcaoMenuInterno == "2")
-                telaRevista.Editar();
-
-            else if (opcaoMenuInterno == "3")
-                telaRevista.Excluir();
-
-            else if (opcaoMenuInterno == "4")
-                telaRevista.VisualizarTodos(true);
-        }
-
-        else if (opcaoMenuPrincipal == "3") // amigos
-        {
-            string? opcaoMenuInterno = telaAmigo.ObterOpcaoMenu();
-
-            if (opcaoMenuInterno == "S")
-                break;
-
-            if (opcaoMenuInterno == "1")
-                telaAmigo.Cadastrar();
-
-            else if (opcaoMenuInterno == "2")
-                telaAmigo.Editar();
-
-            else if (opcaoMenuInterno == "3")
-                telaAmigo.Excluir();
-
-            else if (opcaoMenuInterno == "4")
-                telaAmigo.VisualizarTodos(true);
-            else if (opcaoMenuInterno == "5")
-                telaAmigo.VisualizarEmprestimosAmigo();
-        }
-
-        else if (opcaoMenuPrincipal == "4") // emprestimos
-        {
-            string? opcaoMenuInterno = telaEmprestimo.ObterOpcaoMenu();
-
-            if (opcaoMenuInterno == "S")
-                break;
-
             if (opcaoMenuInterno == "1")
                 telaEmprestimo.Abrir();
 
