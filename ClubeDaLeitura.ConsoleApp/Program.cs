@@ -13,6 +13,7 @@ Caixa caixaTeste = new Caixa("Ação", "Vermelho", 5);
 Revista revistaTeste = new Revista("Action Comics", 1, 1976, caixaTeste);
 Amigo amigoTeste = new Amigo("Junior Testes", "Seu Oswaldo", "49994619407");
 Emprestimo emprestimoTeste = new Emprestimo(amigoTeste, revistaTeste);
+emprestimoTeste.Abrir();
 
 repositorioCaixa.Cadastrar(caixaTeste);
 repositorioRevista.Cadastrar(revistaTeste);

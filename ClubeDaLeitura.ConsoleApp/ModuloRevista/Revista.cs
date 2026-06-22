@@ -6,10 +6,24 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloRevista;
 
 public class Revista : EntidadeBase
 {
+    public enum StatusRevista
+    {
+        Disponivel,
+        Emprestada
+    }
+
     public string Titulo { get; private set; }
     public int NumeroEdicao { get; private set; }
     public int AnoPublicacao { get; private set; }
+    public StatusRevista Status { get; private set; }
     public Caixa Caixa { get; private set; }
+    public bool EstaDisponivel
+    {
+        get
+        {
+            return Status == StatusRevista.Disponivel;
+        }
+    }
 
     public Revista(string titulo, int numeroEdicao, int anoPublicacao, Caixa caixa)
     {
@@ -19,6 +33,19 @@ public class Revista : EntidadeBase
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
         Caixa = caixa;
+
+        Status = StatusRevista.Disponivel;
+
+    }
+
+    public void Emprestar()
+    {
+        Status = StatusRevista.Emprestada;
+    }
+
+    public void Devolver()
+    {
+        Status = StatusRevista.Disponivel;
     }
 
     // substituição de método
