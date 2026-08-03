@@ -25,7 +25,6 @@ public class TelaRevista : TelaBase, ITelaOpcoes
             Console.WriteLine("Visualização de Revistas");
             Console.WriteLine("---------------------------------");
         }
-
         Console.WriteLine(
             "{0, -7} | {1, -25} | {2, -6} | {3, -4} | {4, -15} | {5, -12}",
             "Id", "Título", "Edição", "Ano", "Caixa", "Status"
